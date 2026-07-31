@@ -1,0 +1,36 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# TypeScript / JavaScript
+node_modules/
+.next/
+dist/
+coverage/
+.expo/
+web-build/
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Native build output
+apps/mobile/android/.gradle/
+apps/mobile/android/app/build/
+apps/mobile/ios/Pods/
+apps/mobile/ios/build/
+
+# Local databases and temporary media
+*.sqlite
+*.sqlite3
+tmp/
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/
