@@ -30,7 +30,7 @@ No merge on red.
 - Merge to `main` produces immutable container images identified by commit SHA.
 - Deploy to staging automatically; run health and critical-journey smoke tests.
 - Production promotion is explicit until release confidence justifies further automation.
-- Caddy routes only to healthy application processes.
+- The selected production edge routes only to healthy application processes.
 - Rollback redeploys the previous known-good images.
 
 ## Database migrations

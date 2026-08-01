@@ -14,7 +14,7 @@ Use this runbook after the implementation scaffold supplies the exact commands. 
 
 1. Pull/deploy the candidate images.
 2. Run the dedicated Alembic migration step.
-3. Start/update FastAPI and Next.js; confirm Caddy routes only to healthy services.
+3. Start/update FastAPI and Next.js; confirm the selected production edge routes only to healthy services.
 4. Verify health/readiness endpoints and PostgreSQL connectivity.
 5. Exercise registration/login, workspace selection, report draft/submit, access denial across workspaces, and transcription with the staging provider/fake.
 6. Confirm logs contain request IDs and no report/audio content.

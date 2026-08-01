@@ -15,7 +15,7 @@ Mobile app ──▶ Expo + React Native ────┤
                          PostgreSQL      Transcription provider
 ```
 
-Caddy is the public entry point in a self-hosted production deployment. It terminates HTTPS and routes `/api/*` to FastAPI and other requests to Next.js. Caddy is infrastructure, not part of FastAPI.
+Production requires an HTTPS edge that routes `/api/*` to FastAPI and other requests to Next.js. The specific reverse proxy, load balancer, or managed edge is deliberately selected during deployment, when the host and operational constraints are known. It is infrastructure and never part of FastAPI or the product contract.
 
 ## Responsibilities
 
@@ -151,11 +151,11 @@ Version one preserves unsent drafts locally and retries failed submissions. It d
 
 ## Deployment
 
-The initial production deployment is a small Docker Compose stack on a VPS:
+The initial production deployment is a small Docker Compose stack on a VPS. The production edge is a deployment-time decision:
 
 ```text
-Caddy → Next.js
-      → Uvicorn/FastAPI → PostgreSQL
+HTTPS edge → Next.js
+           → Uvicorn/FastAPI → PostgreSQL
 ```
 
 PostgreSQL is not publicly exposed. Encrypted off-server backups and restore verification are mandatory. A separate database host, worker, Redis, or load balancer is added only after reliability or measured load requires it.

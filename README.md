@@ -13,10 +13,10 @@ Report is a focused commercial reporting application for individuals and organiz
 | API | Python, FastAPI, Uvicorn, Pydantic |
 | Database | Self-hosted PostgreSQL, SQLAlchemy 2, Psycopg 3, Alembic |
 | Contract | FastAPI OpenAPI document and generated TypeScript client |
-| Deployment | Docker Compose on a VPS, Caddy for HTTPS and routing |
+| Deployment | Docker Compose on a VPS; production HTTPS edge selected at deployment |
 | Speech-to-text | Provider-neutral FastAPI adapter |
 
-The full decision is recorded in [ADR-0002](docs/decisions/ADR-0002-platform-stack.md).
+The stack is recorded in [ADR-0002](docs/decisions/ADR-0002-platform-stack.md); deferred deployment and provider choices are recorded in [ADR-0003](docs/decisions/ADR-0003-deferred-edge-and-ai-providers.md).
 
 ## Planned repository layout
 
@@ -31,7 +31,7 @@ packages/
   config/              shared TypeScript configuration
 database/
   migrations/          Alembic migrations
-infrastructure/        Docker Compose and Caddy configuration
+infrastructure/        Docker Compose and deployment configuration
 docs/                   product, architecture, engineering, and operations
 ```
 

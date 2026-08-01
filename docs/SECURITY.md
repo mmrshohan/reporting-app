@@ -8,7 +8,7 @@ Owner: Security Engineer. Authentication, authorization, user-content handling, 
 - FastAPI is the only public business API and validates every boundary.
 - PostgreSQL is private and reachable only by approved application/administrative paths.
 - Transcription providers are external processors; content sent to them leaves our trust boundary.
-- Caddy is the public TLS termination point.
+- The selected production HTTPS edge is a trust boundary; its implementation is decided with the deployment environment.
 
 ## Authentication
 
@@ -47,7 +47,7 @@ Owner: Security Engineer. Authentication, authorization, user-content handling, 
 
 ## Application security
 
-- Validate all request data with Pydantic and enforce payload limits at Caddy and FastAPI.
+- Validate all request data with Pydantic and enforce payload limits at the production edge and FastAPI.
 - Use parameterized SQL through SQLAlchemy/Psycopg; never concatenate untrusted SQL.
 - Escape/sanitize user content according to output context.
 - Configure restrictive CORS; prefer same-origin web API routing.

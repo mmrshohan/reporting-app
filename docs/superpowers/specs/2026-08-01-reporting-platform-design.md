@@ -13,7 +13,7 @@ Version one includes accounts, personal and organization workspaces, membership 
 
 ## Architecture
 
-The monorepo contains a Next.js web client, an Expo/React Native mobile client, and a FastAPI core API. FastAPI owns business rules and the versioned REST contract. PostgreSQL is the system of record. The OpenAPI document generates a shared TypeScript client. Caddy terminates HTTPS and routes public traffic in the initial Docker Compose deployment.
+The monorepo contains a Next.js web client, an Expo/React Native mobile client, and a FastAPI core API. FastAPI owns business rules and the versioned REST contract. PostgreSQL is the system of record. The OpenAPI document generates a shared TypeScript client. Production uses HTTPS and routes web and API traffic through an edge selected when the deployment environment is known; the application does not depend on a particular proxy.
 
 ## Ownership model
 
@@ -22,6 +22,10 @@ Every user receives a personal workspace and may join organization workspaces. E
 ## Report and transcription flow
 
 A local draft is updated immediately while the user types or inserts a transcript. A bounded audio recording is sent to FastAPI, which validates it and calls a configured provider through an adapter. Returned text is editable and raw audio is discarded. Submission is idempotent and creates durable report/revision state in PostgreSQL. Network and provider failures preserve the local draft.
+
+## Deferred voice and AI capabilities
+
+Speech-to-text converts user-initiated audio into editable text and remains in version one, but its provider is not selected. AI refinement may later turn selected draft text into clearer, more mature language after an explicit user request and before user acceptance. Text-to-speech may later read a report aloud, but is not required for the first release. These are separate provider-neutral capabilities. OpenAI, ElevenLabs, and other candidates will be evaluated later for quality, language support, privacy, retention, latency, and cost; no provider may be activated without an ADR and security review.
 
 ## Engineering design
 
@@ -50,3 +54,4 @@ No microservices, Redis, Celery, Kubernetes, GraphQL, Elasticsearch, external au
 - Naming, boundaries, testing, security, database, API, documentation, review, and shipping rules are explicit and internally consistent.
 - The stack decision and its alternatives are preserved in ADRs.
 - Missing operational knowledge is represented by substantive runbooks, not empty placeholders.
+- Deployment and external-provider choices that depend on future constraints are explicitly deferred rather than prematurely standardized.

@@ -1,6 +1,14 @@
 # Transcription and future AI
 
-Owner: AI Engineer with Security and Product review. Speech-to-text is version-one scope; generative drafting/refinement is later.
+Owner: AI Engineer with Security and Product review. Speech-to-text is version-one scope; AI refinement and text-to-speech are later capabilities.
+
+## Capability boundaries
+
+- **Speech-to-text:** converts a user-initiated recording into editable report text. This is part of the core reporting flow.
+- **AI refinement:** rewrites selected draft text into clearer, more mature language only after an explicit user action. This is deferred.
+- **Text-to-speech:** reads text aloud. This is independent of transcription and is deferred until a concrete product need exists.
+
+No provider is selected yet. OpenAI, ElevenLabs, and other providers may be evaluated later, but mentioning a candidate does not create an architectural dependency or approval to send it customer data.
 
 ## Boundary
 
@@ -22,7 +30,7 @@ Provider keys, cost controls, timeouts, retries, consent enforcement, and audit 
 - Existing draft content remains intact on permission, network, provider, or timeout failure.
 - Provider-specific errors do not leak through the public contract.
 
-The provider is selected only after its accuracy, language coverage, latency, pricing, retention, training use, and regional handling are reviewed and recorded in an ADR.
+The provider is selected only after its accuracy, language coverage, latency, pricing, retention, training use, and regional handling are reviewed and recorded in an ADR. The public API and internal capability interface must not expose vendor-specific concepts.
 
 ## Adapter contracts
 
@@ -34,6 +42,7 @@ Conceptual operations:
 transcribe(audio, language_hint) → transcript
 draft_report(source, template) → draft          # later
 refine_report(text, instruction) → revised text # later
+synthesize_speech(text, voice_preferences) → audio # later
 ```
 
 ## Privacy and security
@@ -51,6 +60,7 @@ refine_report(text, instruction) → revised text # later
 - Representative audio fixtures and expected quality criteria form a small evaluation set.
 - Changes run evaluations and compare latency/cost before rollout.
 - Transcription remains editable and never submits a report automatically.
+- Refinement never silently replaces text or submits a report; the user reviews and accepts the result.
 - Future prompts are versioned and reviewed like code.
 
 ## Deliberate exclusions

@@ -54,7 +54,7 @@ Owns design tokens, interaction states, accessibility, motion, responsive behavi
 
 ## Operations Engineer
 
-Owns Docker/Caddy deployment, CI/CD, monitoring, backups, restore testing, releases, rollback, and incident runbooks.
+Owns Docker and production-edge deployment, CI/CD, monitoring, backups, restore testing, releases, rollback, and incident runbooks.
 
 ## Reviewer
 
