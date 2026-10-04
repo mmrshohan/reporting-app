@@ -9,13 +9,13 @@ Web browser ──▶ Next.js ───────────────┐
                                        │ HTTPS /api/v1
 Mobile app ──▶ Expo + React Native ────┤
                                        ▼
-                                    FastAPI
+                               NestJS modular API
                               ┌────────┴────────┐
                               ▼                 ▼
-                         PostgreSQL      Transcription provider
+                         PostgreSQL        AI providers
 ```
 
-Production requires an HTTPS edge that routes `/api/*` to FastAPI and other requests to Next.js. The specific reverse proxy, load balancer, or managed edge is deliberately selected during deployment, when the host and operational constraints are known. It is infrastructure and never part of FastAPI or the product contract.
+Production requires an HTTPS edge that routes `/api/*` to NestJS and other requests to Next.js. The specific reverse proxy, load balancer, or managed edge is deliberately selected during deployment, when the host and operational constraints are known. It is infrastructure and never part of NestJS or the product contract.
 
 ## Responsibilities
 
@@ -23,7 +23,7 @@ Production requires an HTTPS edge that routes `/api/*` to FastAPI and other requ
 
 - Web rendering, navigation, forms, accessibility, and local draft recovery.
 - Uses the generated API client; does not own business rules or direct database access.
-- May perform web-specific rendering on the server, but the public product API remains FastAPI.
+- May perform web-specific rendering on the server, but the public product API remains NestJS.
 
 ### Expo and React Native mobile
 
@@ -31,19 +31,21 @@ Production requires an HTTPS edge that routes `/api/*` to FastAPI and other requ
 - Uses Expo development builds rather than Expo Go for production work.
 - Hermes is the JavaScript runtime; native code remains available through Expo prebuild and development builds.
 
-### FastAPI
+### NestJS core API
 
-- The single core API for web and mobile.
-- Owns authentication, authorization, workspace rules, report lifecycle, transcription orchestration, and the OpenAPI contract.
-- Runs behind Uvicorn. Routers remain thin; services own use cases; repositories own persistence.
+- The single core API for web and mobile, running on Node.js LTS with the default Express adapter.
+- Owns authentication, authorization, workspace rules, report lifecycle, AI orchestration, and the OpenAPI contract.
+- Controllers remain thin; services own use cases and transaction boundaries; repositories own persistence.
+- Begins as one deployable modular monolith. Domain modules are explicit boundaries, not separate services.
 
 ### PostgreSQL
 
 - System of record for accounts, workspaces, memberships, reports, revisions, sessions, and transcription metadata.
 - Self-hosted in the initial architecture.
-- Accessed through SQLAlchemy 2 and Psycopg 3; changed only through Alembic migrations.
+- Accessed through the latest stable Prisma ORM behind repository interfaces; changed only through reviewed migrations.
+- Sensitive tenant tables use PostgreSQL row-level security as defense in depth in addition to application authorization.
 
-### Transcription provider
+### AI providers
 
 - Receives bounded audio through a server-side adapter.
 - Provider credentials never enter a client bundle.
@@ -52,12 +54,12 @@ Production requires an HTTPS edge that routes `/api/*` to FastAPI and other requ
 ## Dependency direction
 
 ```text
-UI → generated API client → router → service → repository → PostgreSQL
+UI → generated API client → controller → service → repository → PostgreSQL
                                       ↓
                                provider interface
 ```
 
-- Routers validate HTTP input, authenticate, and translate results.
+- Controllers validate HTTP input, authenticate, and translate results.
 - Services enforce business rules and transaction boundaries.
 - Repositories execute persistence operations and do not return HTTP responses.
 - Provider implementations translate third-party APIs behind stable internal interfaces.
@@ -77,16 +79,17 @@ apps/
     features/
     components/ui/
     lib/
-  api/app/
-    main.py
-    config.py
-    database.py
-    shared/
+  api/src/
+    main.ts
+    app.module.ts
+    platform/
     modules/
-      auth/
+      identity/
       workspaces/
       reports/
       transcriptions/
+      ai/
+      audit/
 packages/
   api-client/
   design-tokens/
@@ -100,12 +103,15 @@ Create files and layers only when they contain a real responsibility. The layout
 ## Core data model
 
 - `users` — account identity and lifecycle.
+- `authentication_methods` — password and future identity methods owned by a user.
 - `workspaces` — `personal` or `organization` ownership boundary.
 - `workspace_members` — user membership and role within a workspace.
 - `reports` — title, body, lifecycle status, workspace, author, and timestamps.
 - `report_revisions` — durable history for traceability and recovery.
 - `refresh_sessions` — hashed refresh-token state and revocation metadata.
 - `transcription_requests` — provider, status, duration, cost metadata, and errors; no raw audio.
+- `ai_jobs` and `ai_results` — durable status and safe operational metadata for AI capabilities.
+- `audit_events` — append-only security and lifecycle metadata without report bodies.
 
 Every tenant-owned query is scoped by `workspace_id` and authorized against `workspace_members`. Client-supplied ownership identifiers are never trusted without a server-side membership check.
 
@@ -126,7 +132,7 @@ State changes occur through application services and produce revision/audit info
 1. The client requests microphone permission.
 2. Holding the control records bounded audio.
 3. The client sends multipart audio to `POST /api/v1/transcriptions`.
-4. FastAPI validates authentication, workspace access, format, duration, and size.
+4. NestJS validates authentication, workspace access, format, duration, and size.
 5. The transcription service calls the configured provider with a timeout.
 6. The API returns editable transcript text and non-sensitive metadata.
 7. The client inserts the transcript into the local draft.
@@ -155,7 +161,7 @@ The initial production deployment is a small Docker Compose stack on a VPS. The 
 
 ```text
 HTTPS edge → Next.js
-           → Uvicorn/FastAPI → PostgreSQL
+           → Node.js/NestJS → PostgreSQL
 ```
 
 PostgreSQL is not publicly exposed. Encrypted off-server backups and restore verification are mandatory. A separate database host, worker, Redis, or load balancer is added only after reliability or measured load requires it.

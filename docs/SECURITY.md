@@ -5,9 +5,9 @@ Owner: Security Engineer. Authentication, authorization, user-content handling, 
 ## Trust boundaries
 
 - Web and mobile clients are untrusted.
-- FastAPI is the only public business API and validates every boundary.
+- NestJS is the only public business API and validates every boundary.
 - PostgreSQL is private and reachable only by approved application/administrative paths.
-- Transcription providers are external processors; content sent to them leaves our trust boundary.
+- AI and transcription providers are external processors; content sent to them leaves our trust boundary.
 - The selected production HTTPS edge is a trust boundary; its implementation is decided with the deployment environment.
 
 ## Authentication
@@ -26,6 +26,7 @@ Owner: Security Engineer. Authentication, authorization, user-content handling, 
 - Every tenant-owned object has a `workspace_id`.
 - Every read and write verifies current membership and required role server side.
 - Queries scope ownership in the database operation rather than fetching broadly and filtering in application memory.
+- PostgreSQL row-level security protects sensitive tenant tables as defense in depth; application authorization remains mandatory.
 - Tests attempt horizontal privilege escalation between workspaces.
 - Administrative access is explicit, audited, and not implemented through hidden client flags.
 
@@ -47,8 +48,8 @@ Owner: Security Engineer. Authentication, authorization, user-content handling, 
 
 ## Application security
 
-- Validate all request data with Pydantic and enforce payload limits at the production edge and FastAPI.
-- Use parameterized SQL through SQLAlchemy/Psycopg; never concatenate untrusted SQL.
+- Validate all request data through NestJS DTO validation and enforce payload limits at the production edge and NestJS.
+- Use parameterized database operations through Prisma or reviewed parameterized SQL; never concatenate untrusted SQL.
 - Escape/sanitize user content according to output context.
 - Configure restrictive CORS; prefer same-origin web API routing.
 - Configure security headers and HTTPS-only production traffic.

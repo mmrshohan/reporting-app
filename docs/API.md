@@ -1,13 +1,13 @@
 # API standards
 
-Owner: Backend Engineer. FastAPI's OpenAPI document is the protocol source of truth.
+Owner: Backend Engineer. NestJS's generated OpenAPI document is the protocol source of truth.
 
 ## Contract
 
 - Base path: `/api/v1`.
 - Resource paths use plural nouns and kebab-case when multiple words are required.
-- JSON fields use `camelCase`; Python internals use `snake_case` with explicit aliases.
-- Requests and responses use dedicated Pydantic schemas, not SQLAlchemy models.
+- JSON fields use `camelCase`.
+- Requests and responses use dedicated DTOs, not Prisma models.
 - Web and mobile consume a generated TypeScript client from the committed OpenAPI document.
 - CI regenerates the contract and fails when generated output differs.
 
@@ -69,4 +69,4 @@ Owner: Backend Engineer. FastAPI's OpenAPI document is the protocol source of tr
 
 ## Documentation
 
-Endpoint summaries, request/response schemas, authentication requirements, and error responses are declared in FastAPI and visible through generated OpenAPI documentation. Narrative policy belongs here; do not manually maintain a second endpoint catalog.
+Endpoint summaries, request/response DTOs, authentication requirements, and error responses are declared in NestJS and visible through generated OpenAPI documentation. Narrative policy belongs here; do not manually maintain a second endpoint catalog.

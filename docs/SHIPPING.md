@@ -14,13 +14,13 @@ Environment configuration uses documented variables and protected secrets. `.env
 
 ## Required CI gates
 
-1. Locked dependency installation (`pnpm`, `uv`).
+1. Locked dependency installation (`pnpm`).
 2. TypeScript formatting, ESLint, and strict type checking.
-3. Python Ruff, mypy, and Pytest.
-4. API integration tests against PostgreSQL.
+3. NestJS/Vitest checks and API integration tests against PostgreSQL.
+4. Workspace authorization and row-level-security tests.
 5. OpenAPI generation and generated-client drift check.
 6. Web and mobile unit/component tests.
-7. Next.js, Expo, FastAPI container, and migration build/validation.
+7. Next.js, Expo, NestJS container, and migration build/validation.
 8. Documentation-link and secret scanning when configured.
 
 No merge on red.
@@ -36,7 +36,7 @@ No merge on red.
 ## Database migrations
 
 - Back up and verify prerequisites before risky migration work.
-- Run reviewed Alembic migrations as a dedicated deployment step, not independently in every API replica.
+- Run reviewed Prisma/PostgreSQL migrations as a dedicated deployment step, not independently in every API replica.
 - Apply expand–migrate–contract so old and new application versions coexist during rollout.
 - Never rely on reversing a destructive migration to recover data; restore/forward repair procedures are planned.
 
@@ -54,7 +54,7 @@ No merge on red.
 Minimum signals before commercial launch:
 
 - Structured API logs with request IDs and no sensitive report/audio content.
-- Health/readiness checks for Next.js, FastAPI, and PostgreSQL connectivity.
+- Health/readiness checks for Next.js, NestJS, and PostgreSQL connectivity.
 - Error-rate and latency monitoring for API and transcription.
 - Mobile/web crash and client-error reporting under an approved privacy configuration.
 - Disk, memory, CPU, database connections, backup age, and certificate-expiry monitoring.

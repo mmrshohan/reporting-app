@@ -26,14 +26,14 @@ If a change violates one of these rules, it does not ship until the rule is deli
 
 ## Architecture
 
-14. UI → client → router → service → repository is the permitted dependency direction.
-15. OpenAPI is the cross-language contract; generated-client drift fails CI.
-16. Schema changes use reviewed Alembic migrations and safe rollout patterns.
+14. UI → client → controller → service → repository is the permitted dependency direction.
+15. OpenAPI is the client/server contract; generated-client drift fails CI.
+16. Schema changes use reviewed Prisma/PostgreSQL migrations and safe rollout patterns.
 17. No microservice, queue, cache, or infrastructure component without a demonstrated need and ADR.
 
 ## Engineering
 
-18. TypeScript and Python strict checks pass; unexplained `any` and untyped public Python interfaces do not ship.
+18. TypeScript strict checks pass; unexplained `any` does not ship.
 19. No silent failures, bare exception swallowing, or user-facing internal errors.
 20. Tests prove changed behavior at the lowest useful layer and critical ownership/data-safety paths explicitly.
 21. Documentation changes with behavior; meaningful decisions are recorded.

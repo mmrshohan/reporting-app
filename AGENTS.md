@@ -10,6 +10,17 @@ Quality is non-negotiable.
 Optimize token/context usage aggressively when quality is unaffected,
 but never choose a weaker approach merely to save tokens.
 
+## Project Foundation
+
+Before architecture or implementation work, read `docs/TECH_STACK.md`,
+`docs/ARCHITECTURE.md`, and the relevant ADRs. The active foundation is
+a mobile-first TypeScript monorepo with Expo/React Native, Next.js,
+NestJS, PostgreSQL, versioned REST/OpenAPI, and provider-neutral AI.
+
+Treat this as a production-grade, evolving startup product. One engineer
+may perform several expert roles; that changes sequencing and automation,
+not the quality standard. A material stack change requires an ADR.
+
 ## Model / Reasoning Routing
 
 Use the strongest available reasoning when the task materially benefits

@@ -1,7 +1,7 @@
 # Reporting platform design
 
 - **Date:** 2026-08-01
-- **Status:** Approved in conversation; written for repository review
+- **Status:** Superseded for implementation. Product scope remains historical context; use [TECH_STACK.md](../../TECH_STACK.md), [ADR-0004](../../decisions/ADR-0004-typescript-modular-monolith.md), and the forthcoming mobile-first delivery design.
 
 ## Objective
 

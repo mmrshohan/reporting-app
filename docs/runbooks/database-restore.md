@@ -16,7 +16,7 @@ An untested backup is not a recovery capability. Production backups must be encr
 2. Provision an isolated PostgreSQL instance of a compatible version.
 3. Verify backup checksum/integrity where supported.
 4. Restore using the documented tool and credentials.
-5. Run Alembic revision checks.
+5. Run Prisma migration-history and database-contract checks.
 6. Run integrity checks for users, workspaces, memberships, reports, revisions, and sessions.
 7. Start the API against the restored database in an isolated environment.
 8. Run critical API tests, including workspace isolation.

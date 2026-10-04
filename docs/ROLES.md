@@ -8,7 +8,7 @@ Roles are responsibilities, not required headcount. Initially one engineer may w
 | Architecture and ADRs | Staff Engineer | Security and affected domain |
 | Next.js web | Web Engineer | Design, Staff Engineer |
 | Expo/React Native mobile | Mobile Engineer | Design, Staff Engineer |
-| FastAPI and OpenAPI | Backend Engineer | Security, Staff Engineer |
+| NestJS and OpenAPI | Backend Engineer | Security, Staff Engineer |
 | PostgreSQL and migrations | Backend Engineer | Staff Engineer, Operations |
 | Authentication/privacy | Security Engineer | Backend, Product |
 | Transcription/future AI | AI Engineer | Security, Product, Backend |

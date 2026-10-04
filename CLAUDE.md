@@ -1,5 +1,11 @@
 # MODEL ROUTING
 
+Before architecture or implementation work, read `AGENTS.md`,
+`docs/TECH_STACK.md`, `docs/ARCHITECTURE.md`, and the relevant ADRs.
+The active product foundation is mobile-first Expo/React Native,
+Next.js, NestJS, PostgreSQL, versioned REST/OpenAPI, and provider-neutral
+AI in a strict TypeScript monorepo. Material changes require an ADR.
+
 ## Principle
 
 Quality is non-negotiable.

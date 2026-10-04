@@ -2,12 +2,11 @@
 
 ## Start here
 
-Read [README.md](README.md), [docs/RULES.md](docs/RULES.md), [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), and [docs/ENGINEERING.md](docs/ENGINEERING.md) before changing code. Read the relevant ADR and feature documentation for the area you touch.
+Read [README.md](README.md), [docs/TECH_STACK.md](docs/TECH_STACK.md), [docs/RULES.md](docs/RULES.md), [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), and [docs/ENGINEERING.md](docs/ENGINEERING.md) before changing code. Read the relevant ADR and feature documentation for the area you touch.
 
 ## Toolchain
 
-- Node.js and pnpm for Next.js, Expo, and shared TypeScript packages.
-- Python and uv for FastAPI.
+- Node.js LTS and pnpm for Next.js, Expo, NestJS, and shared TypeScript packages.
 - Docker and Docker Compose for PostgreSQL and the production-shaped local stack.
 - Xcode and Android Studio for local mobile development builds.
 
@@ -22,7 +21,7 @@ setup       install locked dependencies and initialize local config
 dev         run the development environment
 test        run the standard test suite
 lint        run format/lint checks
-typecheck   run TypeScript and Python type checks
+typecheck   run strict TypeScript type checks
 build       build production artifacts
 ```
 
@@ -51,7 +50,7 @@ Follow [docs/CODE_REVIEW.md](docs/CODE_REVIEW.md). Do not request review with kn
 ## Naming quick reference
 
 - TypeScript: `camelCase` functions, `PascalCase` components/types, `kebab-case` files, `use...` hooks.
-- Python: `snake_case` modules/functions, `PascalCase` classes, `...Error` exceptions.
+- NestJS: domain modules, thin controllers, use-case services, persistence repositories, and dedicated DTOs.
 - PostgreSQL: plural `snake_case` tables, `snake_case` columns, `<entity>_id` foreign keys.
 - API: plural resource paths and `camelCase` JSON.
 

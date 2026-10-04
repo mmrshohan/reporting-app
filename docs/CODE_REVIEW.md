@@ -32,7 +32,7 @@ Review protects correctness, user data, product quality, and the next engineer's
 
 ### Architecture and simplicity
 
-- Does dependency direction remain UI → client → router → service → repository?
+- Does dependency direction remain UI → client → controller → service → repository?
 - Is business logic duplicated or placed in transport/UI code?
 - Is a new abstraction proven, named by responsibility, and simpler than repetition?
 - Is a new dependency or service necessary now?

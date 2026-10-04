@@ -10,7 +10,7 @@ Report provides one focused workflow:
 
 > Type or dictate a report, review it, and submit it to the correct workspace.
 
-The product is available through a Next.js web application and an Expo/React Native mobile application. Both clients use the same FastAPI contract.
+The product is led by an Expo/React Native mobile application and supported by an intentional Next.js web application. Both clients use the same independent NestJS/OpenAPI contract.
 
 ## Customers and ownership
 
@@ -47,7 +47,7 @@ Every report belongs to exactly one workspace. The same user may own a personal 
 2. **The user remains in control.** Transcription and future AI produce editable drafts, never invisible final decisions.
 3. **Never lose work.** Typed or transcribed content survives recoverable failures.
 4. **Minimal surface, high craft.** Few workflows, completed carefully.
-5. **Web and mobile are peers.** Neither client receives a private or divergent business API.
+5. **Mobile first, both intentional.** Mobile leads delivery; web is not a compressed or secondary experience. Neither client receives a private or divergent business API.
 6. **Privacy is a product feature.** Content leaving the system for transcription is explicit and controlled.
 7. **Commercial foundations without enterprise theater.** Multi-tenancy and authorization are built correctly; speculative scale is not.
 

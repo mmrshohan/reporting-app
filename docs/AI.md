@@ -12,10 +12,10 @@ No provider is selected yet. OpenAI, ElevenLabs, and other providers may be eval
 
 ## Boundary
 
-Clients never call an AI or transcription provider directly. FastAPI exposes product-level capabilities and provider adapters translate external APIs:
+Clients never call an AI or transcription provider directly. NestJS exposes product-level capabilities and provider adapters translate external APIs:
 
 ```text
-Web/mobile → FastAPI service → provider interface → configured provider
+Web/mobile → NestJS service → provider interface → configured provider
 ```
 
 Provider keys, cost controls, timeouts, retries, consent enforcement, and audit metadata remain server side.
@@ -34,7 +34,7 @@ The provider is selected only after its accuracy, language coverage, latency, pr
 
 ## Adapter contracts
 
-Python protocols/interfaces describe product capabilities rather than vendor endpoints. Implementations contain vendor translation; services contain product policy. A deterministic fake provider supports tests.
+TypeScript interfaces describe product capabilities rather than vendor endpoints. Implementations contain vendor translation; services contain product policy. A deterministic fake provider supports tests.
 
 Conceptual operations:
 

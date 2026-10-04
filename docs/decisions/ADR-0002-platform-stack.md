@@ -1,6 +1,6 @@
 # ADR-0002 — Commercial reporting platform stack
 
-- **Status:** Accepted; deployment edge and provider timing amended by [ADR-0003](ADR-0003-deferred-edge-and-ai-providers.md)
+- **Status:** Superseded for core API, database access, and delivery order by [ADR-0004](ADR-0004-typescript-modular-monolith.md); deployment edge and provider timing amended by [ADR-0003](ADR-0003-deferred-edge-and-ai-providers.md)
 - **Date:** 2026-08-01
 - **Deciders:** Product owner and CTO
 
